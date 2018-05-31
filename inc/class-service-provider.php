@@ -46,5 +46,120 @@ class ServiceProvider
 		return $results;
 
 	}
+
+
+	public function getProviders( $type = null)
+	{		
+		$curl = curl_init();
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => site_url( "wp-json/users/getServiceProviderList" ),
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => "",
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 30,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => "GET",		  
+		));
+
+		$response = json_decode( curl_exec($curl));
+		$err = curl_error($curl);
+
+		curl_close($curl);
+
+		if( empty( $type ) )
+		{
+			return $response->result;
+		}
+		else
+		{
+			
+			$ReturnData = '';
+			if( !empty( $response->result ) )
+			{
+				$i = 0;
+				foreach( $response->result as $keys ):
+					$RatingValue = rand( 1,6 );
+					$Rating = '';
+						for( $x = 1; $x < 6; $x++ )
+						{
+							if( $x <= $RatingValue )
+							{
+								$Rating .= '<span class="fa fa-star checked"></span>';
+							}
+							else
+							{
+								$Rating .= '<span class="fa fa-star"></span>';
+							}
+							
+						}
+
+					if( ( $keys->service_type == 1 || $keys->service_type == 3 ) && $type == 1  )
+					{
+
+						$ReturnData .='<div class="col-md-3">
+	               		<div class="provider-profile-post">
+		                        <figure style="background-image:url('.$keys->profile_image.');">
+		                            <div class="figure-inner">
+		                            	<figcaption><a href="#">View Profile</a></figcaption>	                          
+		                            </div>
+		                        </figure>                        
+		                        <div class="provider-profile-info">
+		                            <h4>'.$keys->user_name.'</h4>
+		                            <div class="location">
+		                                <p>'.$keys->state.'</p>
+		                            </div>
+		                            <div class="rating">
+		                                '.$Rating.'
+		                            </div>
+		                        </div>
+	                   		</div>
+	                   	</div>';
+	                   	$i++;
+					}
+					elseif( ( $keys->service_type == 2 || $keys->service_type == 3 ) && $type == 2 )
+					{
+						$ReturnData .='<div class="col-md-3">
+	               		<div class="provider-profile-post">
+		                        <figure style="background-image:url('.$keys->profile_image.');">
+		                            <div class="figure-inner">
+		                            	<figcaption><a href="#">View Profile</a></figcaption>	                          
+		                            </div>
+		                        </figure>                        
+		                        <div class="provider-profile-info">
+		                            <h4>'.$keys->user_name.'</h4>
+		                            <div class="location">
+		                                <p>'.$keys->state.'</p>
+		                            </div>
+		                            <div class="rating">
+		                                '.$Rating.'
+		                            </div>
+		                        </div>
+	                   		</div>
+	                   	</div>';
+	                   	$i++;
+					}
+				if ($i == 4)
+    				break;
+				endforeach;
+
+				return $ReturnData;	
+			}
+			else
+			{
+				return $response->result;
+			}
+		}
+		
+	}
+
+	public function getRating()
+	{
+
+	}
+
+	public function getCounts()
+	{
+		
+	}
 }
 $Service = new ServiceProvider();

@@ -490,6 +490,7 @@ require get_parent_theme_file_path( '/inc/class-job_handler.php' );
 require get_parent_theme_file_path( '/inc/class-users_handler.php' );
 require get_parent_theme_file_path( '/inc/theme-shortcodes.php' );
 require get_parent_theme_file_path( '/inc/class-service-provider.php' );
+require get_parent_theme_file_path( '/inc/theme-custom-posttype.php' );
 
 /* Adding Custom Role In Wp */
 

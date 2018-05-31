@@ -10,20 +10,21 @@
 	<?php endif; ?>
 	<?php wp_head(); ?>
     <link rel="stylesheet" type="text/css" href="<?php echo  get_template_directory_uri() . '/css/dashboard-style.css'; ?>">
-
+    <?php $options = get_fields('option'); ?>
+    <?php $Service = new ServiceProvider(); $UserDetails = $Service->getprofile( get_current_user_id() ); //pre($UserDetails); ?>
 </head>
 
 <body <?php body_class(); ?>>
    <header>
         <div class="logo">
-            <a href="index.html"> <img src="../images/logo.png" alt="I Want Service"></a>
+            <a href="<?php echo site_url(); ?>"> <img src="<?php echo  $options['theme_logo']['url']; ?>" alt="<?php echo  $options['theme_logo']['title']; ?>"></a>
         </div>
         <div class="header-right-menu">
             <ul class="user-side user-profile-menu">
                 <li class="notification"> <a href="#"><i class="fa fa-bell-o" aria-hidden="true"></i><span class="badge">3</span> Notifications</a> </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <figure style="background-image:url('../images/user-profile-pic-large-2.jpg');"></figure> Peter <span class="fa fa-caret-down fa-fw"></span></a>
+                        <figure style="background-image:url('<?php if( !empty($UserDetails) ){ echo $UserDetails[0]->profile_image;  } ?>');"></figure><?php echo $UserDetails[0]->username; ?> <span class="fa fa-caret-down fa-fw"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Setting</a></li>
@@ -32,14 +33,14 @@
                 </li>
             </ul>
         </div>
-    </header>
+    </header>    
     <aside class="menu-sidebar">
         <div class="welcome-profile">
             <div class="profile-pic">
-                <figure style="background-image:url('../images/user-profile-pic-large-2.jpg');"></figure> <span>Welcome,</span>Peter Bell </div>
+                <figure style="background-image:url('<?php if( !empty($UserDetails) ){ echo $UserDetails[0]->profile_image;  } ?>');"></figure> <span>Welcome,</span><?php echo $UserDetails[0]->username; ?></div>
             <ul class="profile-details">
-                <li><a href="tel:0250501461"><i class="fa fa-phone" aria-hidden="true"></i> (02) 5050 1461</a></li>
-                <li><a href="mailto:Peter.bell@info.com"><i class="fa fa-envelope" aria-hidden="true"></i> Peter.bell@info.com</a></li>
+                <li><a href="tel:<?php echo $UserDetails[0]->phone_number; ?>"><i class="fa fa-phone" aria-hidden="true"></i> <?php echo $UserDetails[0]->phone_number; ?></a></li>
+                <li><a href="mailto:<?php echo $UserDetails[0]->email; ?>"><i class="fa fa-envelope" aria-hidden="true"></i> <?php echo $UserDetails[0]->email; ?></a></li>
             </ul>
         </div>
         <ul class="menu-links">

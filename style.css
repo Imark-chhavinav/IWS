@@ -57,3 +57,11 @@ Use it to make something cool, have fun, and share what you've learned with othe
  * Normalizing styles have been helped along thanks to the fine work of
  * Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
  */
+
+ .pac-container {
+    z-index: 1051 !important;
+}
+
+.checked {
+    color: orange;
+}

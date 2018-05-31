@@ -324,4 +324,44 @@ jQuery(document).ready(function() {
 			}	
 		});
 	}
+
+
+	/* Service Provider Dashboard Profile*/
+
+	/* About Me Edit */
+	$( '.desc-edit' ).click(function()
+	{
+		$(this).addClass( 'hidden' );
+		$( '#desc-edit' ).removeClass( 'hidden' );
+	})
+
+	/* Cuisine Type */
+	$( '.cusin-type' ).click(function()
+	{
+		$this = $(this);
+		$this.addClass( 'hidden' );
+		$( '.cuisine-save').removeClass( 'hidden' );
+		$( '#cusin-type' ).addClass( 'hidden' );
+		$("input[name='cuisine_type']").prop("type", "text");		
+		//event.stopImmediatePropagation();
+	});
+
+	$( '.cuisine-save' ).on( 'click', function()
+		{
+			$this = $(this);
+			console.log( 'Hello' );
+			$.ajax({
+				'type':'POST',
+				'url':'http://localhost/iwant/provider/profile/',
+				//'data':{ 'hello':'hello' },
+				success:function(res)
+				{
+					$( '.cusin-type' ).removeClass( 'hidden' );
+					$( '#cusin-type' ).removeClass( 'hidden' );
+					$this.addClass( 'hidden' );					
+					$("input[name='cuisine_type']").prop("type", "hidden");		
+				}
+			});
+		})
+
 });

@@ -104,8 +104,8 @@ class Users extends WP_REST_Controller
 
 		register_rest_route( $this->my_namespace, '/getServiceProviderList',array(
 			'methods'         => WP_REST_Server::READABLE,
-			'callback'        => array( $this, 'getServiceProvider' ),
-			'permission_callback'   => array( $this, 'getServiceProviderListValidation' )		
+			'callback'        => array( $this, 'getServiceProvider' )
+			//'permission_callback'   => array( $this, 'getServiceProviderListValidation' )		
 			) 
 		);
 		register_rest_route( $this->my_namespace, '/updateBusinessDetails',array(
@@ -898,6 +898,9 @@ class Users extends WP_REST_Controller
 			'profile_image'=>$profile_image,
 			'rating'=>"",
 			'service_type'=>$keys->service_type,
+			'location'=>$keys->street_address,
+			'state'=>$keys->state,
+			'suburb'=>$keys->suburb,
 			'location'=>$keys->street_address,
 			'cuisine_type'=>$keys->cuisine_type,
 			'popular_dishes'=>$keys->popular_dishes,

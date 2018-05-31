@@ -322,7 +322,7 @@ function Cs_SignUp()
 	<option value="YEM">Yemen</option>
 	<option value="ZMB">Zambia</option>
 	<option value="ZWE">Zimbabwe</option>
-</select> </div>
+		</select> </div>
 				</div>
 				
 			<div class="col-md-6 service_select" style="display: none;">
@@ -340,8 +340,6 @@ function Cs_SignUp()
 			</div>';	
 	
 	echo $form;
-	
-	
 }
 add_shortcode('SignUp_Cs','Cs_SignUp');
 
@@ -650,3 +648,19 @@ function Cs_UpdateProfile()
 	</div>';
 }
 add_shortcode('UpdateProfile','Cs_UpdateProfile');
+
+
+function getProvider( $Arguments )
+{
+	$Service = new ServiceProvider();
+	if( !empty( $Arguments ) )
+	{
+		$Data = $Service->getProviders($Arguments['type']);
+	}
+	else
+	{
+		$Data = json_decode($Service->getProviders());
+	}	
+	return $Data;
+}
+add_shortcode( 'GETSP' , 'getProvider' );

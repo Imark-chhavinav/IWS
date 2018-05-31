@@ -4,11 +4,19 @@
 */
 get_header();?>
 <?php while ( have_posts() ) : the_post(); ?>
-<div class="banner" data-parallax="scroll" data-image-src="<?php echo get_the_post_thumbnail_url('','full'); ?>" data-speed="0.3">
+<?php 
+$fields = get_fields();  
+
+
+$Service = new ServiceProvider();
+$Service->getProviders();
+?>
+<div class="banner" data-parallax="scroll" data-image-src="<?php echo $fields['banner_image']['url'];  ?>" data-speed="0.3">
         <div class="container">
             <div class="banner-text">
-                <h1 class="wow slideInDown" data-wow-duration="1s">Find expert events Service provider</h1>
-                <p class="wow fadeInUp" data-wow-duration="1.2s">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since</p> <a href="#" class="green-btn wow fadeInDown" data-wow-duration="1.4s">Get started</a> </div>
+            	<?php echo $fields['banner_content'];  ?>
+               <a href="<?php echo $fields['banner_button_link'];  ?>" class="green-btn wow fadeInDown" data-wow-duration="1.4s">Get started</a> 
+            </div>
         </div>
         <div class="search-cover wow fadeInUp" data-wow-duration="1.8s">
             <div class="container">
@@ -34,7 +42,7 @@ get_header();?>
             </div>
         </div>
     </div>
-    <div class="how-it-work" data="section" data-parallax="scroll" data-image-src="images/how-it-work-bac.jpg" data-speed="0.3">
+    <div id="hows" class="how-it-work" data="section" data-parallax="scroll" data-image-src="images/how-it-work-bac.jpg" data-speed="0.3">
         <div class="container">
             <h2>How It Works</h2>
             <div class="how-it-work-steps">
@@ -1222,7 +1230,7 @@ Provider</strong>
                 </div>
                 
                 <div class="col-md-3 text-right">
-                    <img src="images/featured-section-add.jpg" alt="featured-section add">
+                    <img src="<?php echo $fields['featured_categories_image']['url'];  ?>" alt="<?php echo $fields['featured_categories_image']['title'];  ?>">
                 </div>
             </div>
                  
@@ -1232,125 +1240,9 @@ Provider</strong>
     
     <div class="venue-service-providers" data="section">
         <div class="container">
-            <h2>Venue Service Providers</h2>    
-            
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/venue-service-provider-img-1.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/venue-service-provider-img-2.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/venue-service-provider-img-3.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/venue-service-provider-img-4.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                 
+            <h2>Venue Service Providers</h2>  
+            <div class="row">               
+                 <?php echo do_shortcode( '[GETSP type="2"]' ); ?>
             </div>
             
             
@@ -1359,154 +1251,31 @@ Provider</strong>
     
     <div class="venue-service-providers catering-service-providers" data="section">
         <div class="container">
-            <h2>Catering Service Providers</h2>    
-            
+            <h2>Catering Service Providers</h2>
             <div class="row">
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/catering-service-provider-img-1.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/catering-service-provider-img-2.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/catering-service-provider-img-3.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                
-                <div class="col-md-3">
-                    <div class="provider-profile-post">
-                        <figure style="background-image:url('images/venue-service-provider-img-1.jpg');">
-                            <div class="figure-inner">
-                            <figcaption><a href="#">View Profile</a></figcaption>
-                            <ul>
-                                <li><a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                                
-                                <li><a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                            </ul>
-                                </div>
-                        </figure>
-                        
-                        <div class="provider-profile-info">
-                            <h4>James Anderson</h4>
-                            <div class="location">
-                                <p>los angeles</p>
-                            </div>
-                            <div class="rating">
-                                <img src="images/rating.png">
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
-                 
+                 <?php echo do_shortcode( '[GETSP type="1"]' ); ?>
             </div>
-            
-            
         </div>
     </div>
     
     <div class="testimonial-section" data="section">
         <div class="container">
             <h2>Testimonials</h2>
-            
-            
+            <?php 
+				/* Testimonials */
+				$Testimonials_args = array( 'order' => 'ASC', 'post_type' => 'testimonials' , 'post_per_page' => 5);
+				$Testimonials_query = new WP_Query( $Testimonials_args );				
+			?>
             <div class="testimonial-slider">
                 <div class="owl-carousel owl-theme owl-testi-carousel">
+                	<?php while ( $Testimonials_query->have_posts() ) : $Testimonials_query->the_post(); ?>
                     <div class="item">
                         <div class="testimonial-text">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
-dummy text ever since the when an unknown printer took a galley of type and scrambled</p>
+                       	<?php the_content(); ?>
                         </div>
-                        <h5>Peter Jone <small>wedding planner</small></h5>
+                        <h5><?php echo get_the_title(); ?> <small><?php echo get_the_excerpt(); ?></small></h5>
                     </div>
-                    
-                    <div class="item">
-                        <div class="testimonial-text">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
-dummy text ever since the when an unknown printer took a galley of type and scrambled</p>
-                        </div>
-                        <h5>Peter Jone <small>wedding planner</small></h5>
-                    </div>
-                  
+                    <?php endwhile; ?>
                 </div>
             </div>
             
