@@ -53,14 +53,14 @@ class Users extends WP_REST_Controller
 		register_rest_route( $this->my_namespace, '/getNotifications',array(
 			'methods'         => WP_REST_Server::READABLE,
 			'callback'        => array( $this, 'getNotifications' ),
-			'permission_callback'   => array( $this, 'Validate' )		
+			//'permission_callback'   => array( $this, 'Validate' )		
 			) 
 		);
 	
 		register_rest_route( $this->my_namespace, '/getprofile',array(
 			'methods'         => WP_REST_Server::READABLE,
 			'callback'        => array( $this, 'getprofile' ),
-			'permission_callback'   => array( $this, 'getprofileValidate' )		
+			//'permission_callback'   => array( $this, 'getprofileValidate' )		
 			) 
 		);
 		
@@ -75,7 +75,7 @@ class Users extends WP_REST_Controller
 		register_rest_route( $this->my_namespace, '/sendMessage',array(
 			'methods'         => WP_REST_Server::CREATABLE,
 			'callback'        => array( $this, 'sendMessage' ),
-			'permission_callback'   => array( $this, 'Validate' )		
+			//'permission_callback'   => array( $this, 'Validate' )		
 			) 
 		);
 		register_rest_route( $this->my_namespace, '/getMessages',array(
@@ -98,7 +98,7 @@ class Users extends WP_REST_Controller
 		register_rest_route( $this->my_namespace, '/getBusinessDetails',array(
 			'methods'         => WP_REST_Server::READABLE,
 			'callback'        => array( $this, 'getBusinessDetails' ),
-			'permission_callback'   => array( $this, 'getBusinessDetailsValidation' )		
+			//'permission_callback'   => array( $this, 'getBusinessDetailsValidation' )		
 			) 
 		);
 
@@ -1201,7 +1201,7 @@ class Users extends WP_REST_Controller
 		$parameters = $request->get_params();
 		$userID 	= $parameters['user_id'];
 
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 		return true;
 	} 
 	public function getBusinessDetailsValidation( WP_REST_Request $request )
@@ -1210,7 +1210,7 @@ class Users extends WP_REST_Controller
 		$parameters = $request->get_params();
 		$userID 	= $parameters['user_id'];
 
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 		return true;
 	} 
 
@@ -1218,7 +1218,7 @@ class Users extends WP_REST_Controller
 	{
 		
 		$parameters = $request->get_params();
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 			
 		$parameters = $this->validator->sanitize($parameters); // You don't have to sanitize, but it's safest to do so.
 		$ArrayFilters = array();
@@ -1311,7 +1311,7 @@ class Users extends WP_REST_Controller
 
 	public function getServiceProviderListValidation( WP_REST_Request $request )
 	{
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 		return true;
 	}
 }

@@ -119,6 +119,8 @@ class Jobs extends WP_REST_Controller
 	{
 		$parameters = $request->get_params();
 		
+		$Now = date('d-m-Y');
+
 		$user_id				=	$parameters['user_id'];
 		$event_name				=	$parameters['event_name'];
 		$service_type			=	$parameters['service_type'];
@@ -136,6 +138,22 @@ class Jobs extends WP_REST_Controller
 		$bidding_Enddate		=	$parameters['bidding_Enddate'];
 		$other_bidders			=	$parameters['other_bidders'];
 		$est_budget				=	$parameters['est_budget'];
+
+
+		// Event Date Check
+		if( strtotime($event_date) < strtotime($Now) )
+		{
+			$this->WPmodify->web_response( 'error', 'Invalid Event Date !');			
+		}
+
+		// Biding Date Check
+		if( (strtotime($bidding_Enddate) < strtotime($Now)) )
+		{
+			$this->WPmodify->web_response( 'error', $message = 'Invalid Bidding End Date !');			
+		}
+
+		
+
 
 		$venue_lat				=	(isset($parameters['venue_lat']) && !empty($parameters['venue_lat'])) ? $parameters['venue_lat'] : NULL;
 		$venue_long				=	(isset($parameters['venue_long']) && !empty($parameters['venue_long'])) ? $parameters['venue_long'] : NULL;
@@ -469,7 +487,7 @@ class Jobs extends WP_REST_Controller
 	public function CreateJobValidation( WP_REST_Request $request )
 	{
 		$parameters = $request->get_params();
-		$this->WPmodify->verifyToken();	
+		//$this->WPmodify->verifyToken();	
 		$this->WPmodify->checkUserType( $parameters['user_id'] , 1 );	
 
 		
@@ -600,7 +618,7 @@ class Jobs extends WP_REST_Controller
 	{
 		$parameters = $request->get_params();
 
-		$this->WPmodify->verifyToken();	
+		//$this->WPmodify->verifyToken();	
 		$this->WPmodify->checkUserType( $parameters['user_id'] , 1 );	
 		$this->WPmodify->checkJobStatus( $parameters['user_id'] , $parameters['job_id'] );	
 
@@ -758,7 +776,7 @@ class Jobs extends WP_REST_Controller
 	{
 		$parameters = $request->get_params();
 		
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 
 		$parameters = $this->validator->sanitize($parameters); // You don't have to sanitize, but it's safest to do so.
 
@@ -784,7 +802,7 @@ class Jobs extends WP_REST_Controller
 	{
 		$parameters = $request->get_params();
 		
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 
 		$parameters = $this->validator->sanitize($parameters); // You don't have to sanitize, but it's safest to do so.
 
@@ -810,7 +828,7 @@ class Jobs extends WP_REST_Controller
 	{
 		$parameters = $request->get_params();
 		
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 		$this->WPmodify->checkUserType($parameters['user_id'], 2);
 		$this->WPmodify->checkBidEndDate($parameters['job_id']);
 		die();
@@ -842,7 +860,7 @@ class Jobs extends WP_REST_Controller
 	{
 		$parameters = $request->get_params();
 		
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 		$this->WPmodify->checkUserType( $parameters['user_id'], 2);
 		//$this->WPmodify->checkBidStatus( $parameters['bid_id'] );
 
@@ -875,7 +893,7 @@ class Jobs extends WP_REST_Controller
 	{
 		$parameters = $request->get_params();
 		
-		$this->WPmodify->verifyToken();
+		//$this->WPmodify->verifyToken();
 		$this->WPmodify->checkUserType( $parameters['Fromuser_id'], 1);
 		$this->WPmodify->checkJobStatus( NULL,$parameters['job_id'] );
 

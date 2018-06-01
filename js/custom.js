@@ -134,6 +134,14 @@ jQuery(document).ready(function() {
 								}); */
 								toastr.error( res.result, 'Error!');
 							} 
+
+							if( res.code == 'error' )
+							{
+								$.each(res.message, function(key, value) 
+								{
+									toastr.error( value, 'Error!');
+								}); 								
+							} 
 							
 						}			
 					})
@@ -442,7 +450,7 @@ jQuery(document).ready(function() {
 		$( 'input[name="postcode"]' ).val("");
 		$( 'input[name="lat"]' ).val("");
 		$( 'input[name="longs"]' ).val("");
-
+		console.log( place.address_components );
         $( place.address_components ).each(function( item , value )
         	{
         		
@@ -455,14 +463,19 @@ jQuery(document).ready(function() {
 					/* State */	
         		 if( value.types[0] == 'administrative_area_level_1' )
         		{
-        			$('input[name="state"]').val(value.short_name);
+        			$('input[name="state"]').val(value.long_name);
         		}
 
-        		/* postcode */	
-
+        		/* postcode */
         		if( value.types[0] == 'postal_code' )        		
         		{
         			$( 'input[name="postcode"]' ).val(value.long_name);
+        		}  
+
+        		/* Country */
+        		if( value.types[0] == 'country' )        		
+        		{
+        			$( '#country' ).val(value.short_name);
         		}        		
 
 
