@@ -77,10 +77,7 @@ jQuery(document).ready(function() {
 			$('input[name="abn"]').prop('disabled',true);
 		}
       });
-	
-	
-
-	 /* Form Validations */
+     /* Form Validations */
 	
 	/* SignUp Form */	
 	if($("#SignUp").length > 0)
@@ -129,12 +126,13 @@ jQuery(document).ready(function() {
 						data:$("#SignUp").serialize(),
 						success:function(res)
 						{
-							 if( res.code == 'error' )
+							 if( res.success == 0 )
 							{
-								$.each(res.message, function(key, value) 
+								/*$.each(res.result, function(key, value) 
 								{
-									toastr.error( value, 'Error!');
-								}); 
+									toastr.error( res.result, 'Error!');
+								}); */
+								toastr.error( res.result, 'Error!');
 							} 
 							
 						}			
@@ -183,21 +181,77 @@ jQuery(document).ready(function() {
 	
 	
 	/* Creating a Job */
+
+	$( '#service_type' ).change(function()
+	{
+		var Id = $(this).val();
+		if( Id == 1 )
+		{
+			// Catering
+			$('.cat_req').removeClass( 'hidden' );
+			$('.venue_req').addClass( 'hidden' );
+		}
+		else if( Id == 2 )
+		{
+			//Venue
+			$('.venue_req').removeClass( 'hidden' );
+			$('.cat_req').addClass( 'hidden' );
+		}
+		else if( Id == 3 )
+		{
+			//Venue and catering
+			$('.cat_req').removeClass( 'hidden' );
+			$('.venue_req').removeClass( 'hidden' );
+		}
+
+	});
+
 	if( $("#CreateJob").length > 0 )
 	{     
 		$("#CreateJob").validate({
 		   rules: {
 			event_name:		{  required:true },
 			service_type:	{  required:true },			
-			event_date:		{  required:true },			
-			event_time:		{  required:true },			
+			event_date:		{  required:true , date: true },			
+			event_time:		{  required:true , time:true },			
 			number_guest:	{  required:true },			
-			bidding_Enddate:{  required:true }		
+			bidding_Enddate:{  required:true , date: true },					
+			proximity_location:{  required:true ,  number: true },
+			venue_location: {
+								required: function(element) 
+								{
+									return ( $( '#service_type' ).val() == 2 || $( '#service_type' ).val() == 3);
+								}
+							},
+			proximity_location: {
+								required: function(element) 
+								{
+									return ( $( '#service_type' ).val() == 2 || $( '#service_type' ).val() == 3);
+								}
+							},
+			catering_location: {
+								required: function(element) 
+								{
+									return ( $( '#service_type' ).val() == 1 || $( '#service_type' ).val() == 3);
+								}
+							},
+			catering_requirement: {
+								required: function(element) 
+								{
+									return ( $( '#service_type' ).val() == 1 || $( '#service_type' ).val() == 3);
+								}
+							},
+			venue_requirement: {
+								required: function(element) 
+								{
+									return ( $( '#service_type' ).val() == 2 || $( '#service_type' ).val() == 3);
+								}
+							},			
 		   },		   
 		 submitHandler: function() {
 					 $.ajax({
 						type:"POST",
-						url:'http://iwantservice.imarkclients.com/wp-json/jobs/createJob',
+						url:cs_jobs.url+'createJob',
 						dataType : 'json',
 						data:$("#CreateJob").serialize(),
 						success:function(res)
@@ -315,7 +369,7 @@ jQuery(document).ready(function() {
 							if( res.status == 'success' )
 							{
 								toastr.success( res.message, 'Success'); 
-								//location.reload();
+								location.reload();
 							}
 							
 						}			
@@ -365,3 +419,75 @@ jQuery(document).ready(function() {
 		})
 
 });
+
+/* Google AutoComplete  */	 
+
+     var placeSearch, autocomplete; 
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+        autocomplete.addListener('place_changed', fillInAddress);        
+      }
+
+      function fillInAddress() 
+	  {
+        
+        var place = autocomplete.getPlace();
+       	$( 'input[name="suburb"]' ).val("");
+		$( 'input[name="state"]').val("");
+		$( 'input[name="postcode"]' ).val("");
+		$( 'input[name="lat"]' ).val("");
+		$( 'input[name="longs"]' ).val("");
+
+        $( place.address_components ).each(function( item , value )
+        	{
+        		
+					/* City */
+        		if( value.types[0] == 'administrative_area_level_2' )
+        		{
+        			$( 'input[name="suburb"]' ).val(value.long_name);
+        		}
+
+					/* State */	
+        		 if( value.types[0] == 'administrative_area_level_1' )
+        		{
+        			$('input[name="state"]').val(value.short_name);
+        		}
+
+        		/* postcode */	
+
+        		if( value.types[0] == 'postal_code' )        		
+        		{
+        			$( 'input[name="postcode"]' ).val(value.long_name);
+        		}        		
+
+
+        	});
+
+		$( 'input[name="lat"]' ).val(place.geometry.location.lat());
+		$( 'input[name="longs"]' ).val(place.geometry.location.lng());
+		console.log( place.geometry.location.lat() );
+		console.log( place.geometry.location.lng() );
+		
+      }
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }

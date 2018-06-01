@@ -21,12 +21,22 @@ class ServiceProvider
 	{	
 		if( empty( $UserID ) )
 		{
-			echo $UserID = $this->current_user->ID;
+			$UserID = $this->current_user->ID;
 		}
 		
 		global $wpdb;
-		/* SELECT id,user_id,first_name,last_name,username,apartment_number,street_address,suburb,state,post_code,email,title,profile_image,about_me,business_number,abn,user_type,phone_number FROM '.$wpdb->prefix.'registration INNER JOIN '.$wpdb->prefix.'businessdetail ON '.$wpdb->prefix.'registration.user_id = '.$wpdb->prefix.'businessdetail.user_id WHERE  */		
-		$results = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.'registration INNER JOIN '.$wpdb->prefix.'businessdetail ON '.$wpdb->prefix.'registration.user_id = '.$wpdb->prefix.'businessdetail.user_id WHERE '.$wpdb->prefix.'registration.user_id ='.$UserID, OBJECT );	
+		/* SELECT id,user_id,first_name,last_name,username,apartment_number,street_address,suburb,state,post_code,email,title,profile_image,about_me,business_number,abn,user_type,phone_number FROM '.$wpdb->prefix.'registration INNER JOIN '.$wpdb->prefix.'businessdetail ON '.$wpdb->prefix.'registration.user_id = '.$wpdb->prefix.'businessdetail.user_id WHERE  */
+
+		if( $this->current_user->roles[0] == 'customer' )
+		{
+			$results = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.'registration WHERE '.$wpdb->prefix.'registration.user_id ='.$UserID, OBJECT );	
+		}	
+
+		if(  $this->current_user->roles[0] == 'provider' )	
+		{
+			$results = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.'registration INNER JOIN '.$wpdb->prefix.'businessdetail ON '.$wpdb->prefix.'registration.user_id = '.$wpdb->prefix.'businessdetail.user_id WHERE '.$wpdb->prefix.'registration.user_id ='.$UserID, OBJECT );	
+		}
+		
 		
 		if( $results[0]->profile_image != NULL )
 		{

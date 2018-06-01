@@ -19,6 +19,8 @@ get_header()
                 <div class="col-md-8 col-md-offset-2">
                     <div class="sign-up-cover">
                         <form id="SignUp" method="POST">
+                        	<input type="hidden" name="lat">
+                        	<input type="hidden" name="longs">
 						<?php wp_nonce_field( 'Signup', 'SignUp_wpnonce',true,true ); ?>
                             <ul>
                                 <li>
@@ -85,3 +87,4 @@ get_header()
         </div>
     </div>
 <?php get_footer(); ?>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZHrvncNkxI08KsBZUrH-9GkIi3WDfzlc&libraries=places&callback=initAutocomplete"></script>

@@ -172,6 +172,8 @@ class Users extends WP_REST_Controller
 		$device_token 			= $parameters['device_token'];
 		$user_type 				= $parameters['user_type'];
 		$about_me 				= $parameters['about_me'];
+		$lat 					= $parameters['lat'];
+		$longs 					= $parameters['longs'];
 		$user_activation_key	= time().base64_encode($email);
 	
 		if( $parameters['user_type'] == 1 )
@@ -217,6 +219,8 @@ class Users extends WP_REST_Controller
 		'post_code'=>$postcode,
 		'country'=>$country,
 		'email'=>$email,
+		'lat'=>$lat,
+		'longs'=>$longs,
 		'title'=>$title,
 		'business_number'=>$business_name,
 		'abn'=>$abn,
@@ -594,7 +598,7 @@ class Users extends WP_REST_Controller
 		$first_name 			= $parameters['first_name'];
 		$last_name 				= $parameters['last_name'];		
 		$phone_number 			= $parameters['phone_number'];
-		$unit_apartment_number 	= $parameters['unit_apartment_number'];
+		$unit_apartment_number 	= $parameters['apartment_number'];
 		$street_address 		= $parameters['street_address'];
 		$suburb 				= $parameters['suburb'];
 		$state 					= $parameters['state'];
@@ -629,14 +633,12 @@ class Users extends WP_REST_Controller
 		if( isset($_FILES) && $more_img != NULL )
 		{
 			$Data['profile_image'] = $more_img;
-		}
-
+		}		
 		
 		update_user_meta($user_id, 'first_name', $first_name);
 		update_user_meta($user_id, 'last_name', $last_name);		
-		$wpdb->update( $wpdb->prefix.'registration', $Data,	array( 'user_id' => $user_id ));
+		$wpdb->update( $wpdb->prefix.'registration', $Data,	array( 'user_id' => $user_id ));		
 		$wpdb->flush();
-
 		
 		if(isset($parameters['UpdateProfile_wpnonce']))
 		{

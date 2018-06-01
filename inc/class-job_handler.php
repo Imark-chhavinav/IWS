@@ -45,8 +45,8 @@ class Jobs extends WP_REST_Controller
 	
 	register_rest_route( $this->my_namespace, '/createJob',array(
 		'methods'         => WP_REST_Server::CREATABLE,
-		'callback'        => array( $this, 'CreateJob' ),
-		'permission_callback'   => array( $this, 'CreateJobValidation' )		
+		'callback'        => array( $this, 'CreateJob' )
+		//'permission_callback'   => array( $this, 'CreateJobValidation' )		
 		) 
 	);
 
@@ -175,10 +175,14 @@ class Jobs extends WP_REST_Controller
 		
 		
 		global $wpdb;		
-		/*print_R($Data);
-		die();*/
+		
 		$InsertedID = $wpdb->insert( $wpdb->prefix.'events', $Data );	 
 		$wpdb->flush();
+		// Print last SQL query string
+		/*$wpdb->queries;
+		$wpdb->last_query;		
+		$wpdb->last_result;		
+		$wpdb->last_error;*/
 		
 		if( $InsertedID  )
 		{			

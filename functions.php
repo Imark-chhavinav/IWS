@@ -452,16 +452,16 @@ wp_enqueue_style('bootstrap-timepicker-style',get_template_directory_uri() . '/c
 	endif;	
 		
 	
-	wp_enqueue_script( 'boostrap-cdn-js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js','',time(),true);
-	wp_enqueue_script( 'jquery-cdn-js', 'https://code.jquery.com/ui/1.12.1/jquery-ui.js','',time(),true);
+	wp_enqueue_script( 'boostrap-cdn-js', get_template_directory_uri() . '/js/bootstrap.min.js','',time(),true);
+	wp_enqueue_script( 'jquery-cdn-js', get_template_directory_uri() . '/js/jquery-ui.js','',time(),true);
 	wp_enqueue_script( 'wow-min-js', get_template_directory_uri() . '/js/wow.min.js','',time(),true);
 	wp_add_inline_script( 'wow-min-js', ' new WOW().init();' );
 	wp_enqueue_script( 'parallax-js', get_template_directory_uri() . '/js/parallax.js','',time(),true);
 	wp_enqueue_script( 'bootstrap-timepicker-js', get_template_directory_uri() . '/js/bootstrap-timepicker.min.js','',time(),true);
-	wp_enqueue_script( 'owl-carousel-js', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js','',time(),true );
-	wp_enqueue_script('toastr-min', 'https:////cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js','',time(),true );
-	wp_enqueue_script('jquery-validate-min', 'https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js','',time(),true );
-	wp_enqueue_script('jquery-validate-additional-methods', 'https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js','',time(),true );
+	wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/js/owl.carousel.min.js','',time(),true );
+	wp_enqueue_script('toastr-min', get_template_directory_uri() . '/js/toastr.min.js','',time(),true );
+	wp_enqueue_script('jquery-validate-min', get_template_directory_uri() . '/js/jquery.validate.min.js','',time(),true );
+	wp_enqueue_script('jquery-validate-additional-methods', get_template_directory_uri() . '/js/additional-methods.min.js','',time(),true );
 	
 	
 	/* Define URL FOR AJAX */
@@ -471,6 +471,8 @@ wp_enqueue_style('bootstrap-timepicker-style',get_template_directory_uri() . '/c
 	wp_enqueue_script( 'ajax_urls' );
 
 	wp_enqueue_script( 'custom-js', get_template_directory_uri() . '/js/custom.js','',time(),true);
+	wp_enqueue_script( 'GoogleApi','https://maps.googleapis.com/maps/api/js?key=AIzaSyAZHrvncNkxI08KsBZUrH-9GkIi3WDfzlc&libraries=places&callback=initAutocomplete',array(),null,true);
+	
 }
 add_action( 'wp_enqueue_scripts', 'themeScripts' );
 
@@ -532,3 +534,32 @@ if( function_exists('acf_add_options_page') ) {
 	));
 	
 }
+
+/* Remove User Data When User is Deleted From All Tables */
+
+function fetchAlltableDelete( $user_id ) 
+{
+	global $wpdb;
+ 	$user_obj = get_userdata( $user_id );
+   
+    if( $user_obj->roles[0] == 'customer' )
+	    {
+	    	// For Customer
+	    	$wpdb->delete( $wpdb->prefix.'registration', array( 'user_id' => $user_id  ));
+			$wpdb->delete( $wpdb->prefix.'events', array( 'user_id' => $user_id  ));
+			$wpdb->delete( $wpdb->prefix.'invites', array( 'Fromuser_id' => $user_id  ));
+	    }
+
+	if( $user_obj->roles[0] == 'provider' )
+	    {
+	    	// For Customer
+	    	$wpdb->delete( $wpdb->prefix.'registration', array( 'user_id' => $user_id  ));
+			$wpdb->delete( $wpdb->prefix.'events', array( 'user_id' => $user_id  ));
+			$wpdb->delete( $wpdb->prefix.'businessdetail', array( 'user_id' => $user_id  ));
+			$wpdb->delete( $wpdb->prefix.'invites', array( 'Touser_id' => $user_id  ));
+	    }
+
+	
+       
+}
+add_action( 'delete_user', 'fetchAlltableDelete' );

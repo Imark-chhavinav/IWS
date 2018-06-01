@@ -15,6 +15,7 @@ get_header()
 
 global $wpdb;
 $results = $wpdb->get_results( 'SELECT id,user_id,first_name,last_name,username,phone_number,apartment_number,street_address,suburb,state,post_code,email,title,profile_image,country,about_me,business_number,abn,user_type FROM '.$wpdb->prefix.'registration WHERE user_id ='.$current_user->ID, OBJECT );
+$Image = $results[0]->profile_image;
 
 //print_R($results);
 ?>
@@ -24,9 +25,9 @@ $results = $wpdb->get_results( 'SELECT id,user_id,first_name,last_name,username,
                 <h2>Customer Profile</h2> </div>
             <div class="customer-profile-cover">
                 <div class="customer-profile-pic">
-                    <figure style="background-image: url(../images/user-profile-pic-large.jpg);"></figure>
-                    <h3><?php echo $results[0]->first_name.' '.$results[0]->last_name; ?></h3>
-                    <p>Marketing Manager</p>
+                    <figure style="background-image: url(<?php echo site_url( $Image ); ?>);"></figure>
+                    <h3><?php echo $results[0]->first_name.' '.$results[0]->last_name; ?> <a href="#" data-toggle="modal" data-target="#Cust_UpdateProfileModal" class="white-btn">Edit</a></h3>
+                    <!--<p>Marketing Manager</p>-->
                     <ul class="customer-contact-details">
                         <li><i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:<?php echo trim($results[0]->phone_number); ?>"><?php echo $results[0]->phone_number; ?></a></li>
                         <li><i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:<?php echo trim($results[0]->email); ?>"><?php echo trim($results[0]->email); ?></a></li>
@@ -159,4 +160,5 @@ $results = $wpdb->get_results( 'SELECT id,user_id,first_name,last_name,username,
             </div>
         </div>
     </div>
+<?php echo do_shortcode( '[CS_CustUP]' ); ?>
 <?php get_footer(); ?>

@@ -1,6 +1,6 @@
 <?php
 /* 
-* Template Name: Create Job Template
+* Template Name: Create Event Template
 */
 $current_user = wp_get_current_user();
 
@@ -14,7 +14,7 @@ get_header()
 <div class="main-mid-section event-req-page" data="section">
         <div class="container">
             <div class="text-center">
-                <h2>Create Job</h2> 
+                <h2><?php echo get_the_title(); ?></h2> 
             </div>
             <form id="CreateJob" method="POST">			
 			<input type="hidden" name="nonce" value="<?php wp_create_nonce( 'create_job'); ?>">
@@ -32,7 +32,7 @@ get_header()
                     <div class="col-md-6">
                         <div class="form-group">
                        
-                             <select name="service_type" class="form-control">
+                             <select id="service_type" name="service_type" class="form-control">
                                 <option value="" >Service Type</option>
                                 <option value="1">Catering</option>
                                 <option value="2">Venue</option>
@@ -45,7 +45,7 @@ get_header()
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                <input type="text" name="event_date" class="form-control datepicker" placeholder="Event Date">
+                                <input type="text" name="event_date" id="dt1" class="form-control datepicker" placeholder="Event Date">
                                 </div>
                             </div>
 							<div class="col-md-6">
@@ -60,35 +60,32 @@ get_header()
                     </div>
 					 <div class="col-md-6">
 						<div class="form-group">
-							   <select name="event_type" class="form-control">
-									<option>Event Type</option>
-									<option>Birthday</option>
-								</select>
+							  <input type="text" name="event_type" class="form-control" placeholder="Event Type"> 
 							</div>
                         </div>
                     
-                      <div class="col-md-6">
+                      <div class="col-md-6 venue_req hidden">
                                 <div class="form-group">
-                                <input type="text" class="form-control" name="venue_location" placeholder="Venue Location">
+                                <input type="text" class="form-control venue_req hidden" name="venue_location" placeholder="Venue Location">
                                 </div>
                             </div>
                             
-                             <div class="col-md-6">
+                             <div class="col-md-6 venue_req hidden">
                                  <div class="form-group">
-                                <input type="text" class="form-control" name="proximity_location" placeholder="Proximity to Location">
+                                <input type="text" class="form-control venue_req hidden" name="proximity_location" placeholder="Proximity to Location">
                                  </div>
                             </div>       
                     
                    
                     <div class="col-md-12">
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Description of Event Requirement"></textarea>
+                            <textarea name="event_requirement" class="form-control" placeholder="Description of Event Requirement"></textarea>
                         </div>
                     </div>
                     
-                     <div class="col-md-6">
+                     <div class="col-md-6 cat_req hidden">
                         <div class="form-group">
-                           <input type="text" class="form-control" name="catering_location" placeholder="Catering Location ">
+                           <input type="text" class="form-control cat_req hidden" name="catering_location" placeholder="Catering Location ">
                         </div>
                     </div> 	
 					
@@ -107,15 +104,15 @@ get_header()
                             <textarea class="form-control short-height" name="allergies" placeholder="Food Allergies (Add Multiple)"></textarea>
                         </div>
                     </div>
-					 <div class="col-md-12">
+					 <div class="col-md-12 cat_req hidden">
                         <div class="form-group">
-                            <textarea class="form-control short-height" name="catering_requirement" placeholder="Catering Requirements"></textarea>
+                            <textarea class="form-control short-height cat_req hidden" name="catering_requirement" placeholder="Catering Requirements"></textarea>
                         </div>
                     </div> 
 					
-					<div class="col-md-12">
+					<div class="col-md-12  venue_req hidden">
                         <div class="form-group">
-                            <textarea class="form-control short-height" name="venue_requirement" placeholder="Venue Requirements "></textarea>
+                            <textarea class="form-control short-height venue_req hidden" name="venue_requirement" placeholder="Venue Requirements "></textarea>
                         </div>
                     </div>
 					<div class="col-md-12">
@@ -125,7 +122,7 @@ get_header()
                     </div>
                     <div class="col-md-6">
                                  <div class="form-group">
-                                <input type="text" name="bidding_Enddate" class="form-control datepicker" placeholder="Bidding End Date">
+                                <input type="text" id="dt2" name="bidding_Enddate" class="form-control datepicker" placeholder="Bidding End Date">
                                  </div>
                             </div>
                      <div class="col-md-6">
@@ -150,3 +147,30 @@ get_header()
         </div>
     </div>
 <?php get_footer(); ?>
+<script>
+    $(document).ready(function(){
+        $("#dt1").datepicker({
+            dateFormat: "dd-M-yy",
+            minDate: 0,
+            onSelect: function (date) {
+                var date2 = $('#dt1').datepicker('getDate');
+                date2.setDate(date2.getDate() + 1);
+                $('#dt2').datepicker('setDate', date2);
+                //sets minDate to dt1 date + 1
+                $('#dt2').datepicker('option', 'minDate', date2);
+            }
+        });
+        $('#dt2').datepicker({
+            dateFormat: "dd-M-yy",
+            onClose: function () {
+                var dt1 = $('#dt1').datepicker('getDate');
+                console.log(dt1);
+                var dt2 = $('#dt2').datepicker('getDate');
+                if (dt2 <= dt1) {
+                    var minDate = $('#dt2').datepicker('option', 'minDate');
+                    $('#dt2').datepicker('setDate', minDate);
+                }
+            }
+        });
+    })
+</script>
