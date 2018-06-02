@@ -9,7 +9,7 @@ $current_user = wp_get_current_user();
 	wp_redirect(site_url());
 	exit;
 } */
-$results = $Service->getprofile(); pre($results);
+$results = $Service->getprofile(); //pre($results);
 $AboutMe = trim( $results[0]->about_me );
 $CuisineType = explode( ',' ,trim( $results[0]->cuisine_type ));
 get_header('dashboard');?>

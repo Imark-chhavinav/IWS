@@ -35,9 +35,12 @@ class ServiceProvider
 		if(  $this->current_user->roles[0] == 'provider' )	
 		{
 			$results = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.'registration INNER JOIN '.$wpdb->prefix.'businessdetail ON '.$wpdb->prefix.'registration.user_id = '.$wpdb->prefix.'businessdetail.user_id WHERE '.$wpdb->prefix.'registration.user_id ='.$UserID, OBJECT );	
+			if( empty( $results ) )
+			{
+				$results = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.'registration WHERE '.$wpdb->prefix.'registration.user_id ='.$UserID, OBJECT );
+			}
 		}
-		
-		
+	
 		if( $results[0]->profile_image != NULL )
 		{
 			if( $results[0]->user_type == 1 ) //customer

@@ -767,3 +767,80 @@ function Cs_Cust_UpdateProfile()
 	</div>';
 }
 add_shortcode('CS_CustUP','Cs_Cust_UpdateProfile');
+
+
+function Cs_UpdateBussinessDetails()
+{
+	echo '<div id="UpdateBussinessDetailsModal" class="modal fade custom-popup custom-popup-small" role="dialog">
+		  <div class="modal-dialog">
+		  <form id="UpdateBussinessDetails" method="POST">
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">x</button>
+		        <h2 class="modal-title">Update Business Profile</h2>
+		      </div>
+		      <div class="modal-body">
+				  '.wp_nonce_field( 'BussinessProfile', 'BussinessProfile_wpnonce').'
+				  	<div class="col-lg-6 form-group">
+						<label>Service Provided</label>
+						<select class="form-control" name="">
+							<option value="1"> Catering Only</option>
+							<option value="2"> Venue Only</option>
+							<option value="3"> Catering and Venue</option>
+						</select>
+		     	 	</div>
+		     	 	<div class="col-lg-6 form-group">
+					  <label>Business Description/ About Me</label>
+					  <textarea name="abt_me"></textarea>
+					</div>					  		
+		     	 	<div class="clearfix"></div>
+		     	 	<div class="col-lg-6 form-group">
+					  	<label>Cuisine Types Provided</label>
+		                <>
+		     	 	</div>
+		     	 	<div class="col-lg-6 form-group">
+					  		<label>Last Name</label>
+		                	<input type="text" name="last_name" value = "'.$results[0]->last_name.'" class="form-control" >
+		     	 	</div> 
+		     	 	<div class="col-lg-6 form-group">
+					  		<label>Phone Number</label>
+		                	<input type="text" name="phone_number" value = "'.$results[0]->phone_number.'" class="form-control" >
+		     	 	</div>
+		     	 	<div class="col-lg-6 form-group">
+					  		<label>Street Address</label>
+		                	<input type="text" name="street_address" id="autocomplete" value = "'.$results[0]->street_address.'" class="form-control" >
+		     	 	</div>
+		     	 	<div class="col-lg-6 form-group">
+					  		<label>Unit or Apartment Number</label>
+		                	<input type="text" name="apartment_number" value = "'.$results[0]->apartment_number.'" class="form-control" >
+		     	 	</div>
+		     	 	<div class="col-lg-6 form-group">
+					  		<label>Suburb</label>
+		                	<input type="text" name="suburb" value = "'.$results[0]->suburb.'" class="form-control" >
+		     	 	</div>  
+		     	 	<div class="col-lg-6 form-group">
+					  		<label>State</label>
+		                	<input type="text" name="state" value = "'.$results[0]->state.'" class="form-control" >
+		     	 	</div>
+		     	 	<div class="col-lg-6 form-group">
+					  		<label>Postcode</label>
+		                	<input type="text" name="postcode" value = "'.$results[0]->post_code.'" class="form-control" >
+		     	 	</div> 
+		     	 	<div class="col-lg-12 form-group">
+					  		<label>About Me</label>
+					  		<textarea name="about_me" class="form-control" >'.$results[0]->about_me.'</textarea>                	
+		     	 	</div>   	 	
+		                
+		      </div>
+		      
+		      <div class="modal-footer">
+		        <input type="submit" value="Update Details" class="btn btn-default">
+		      </div>
+
+		    </div>
+		</form>   
+  </div>
+	</div>';
+}
+add_shortcode( 'BP_Update' , 'Cs_UpdateBussinessDetails' );
