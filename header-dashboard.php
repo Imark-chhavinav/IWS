@@ -26,9 +26,9 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <figure style="background-image:url('<?php if( !empty($UserDetails) ){ echo $UserDetails[0]->profile_image;  } ?>');"></figure><?php echo $UserDetails[0]->username; ?> <span class="fa fa-caret-down fa-fw"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Setting</a></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                        <li><a href="<?php echo  site_url( '/provider/profile' ); ?>"><i class="fa fa-user fa-fw"></i> User Profile</a></li>
+                        <li><a href="<?php echo  site_url( '/provider/setting' ); ?>"><i class="fa fa-gear fa-fw"></i> Setting</a></li>
+                        <li><a href="<?php echo wp_logout_url( site_url() ); ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -45,7 +45,7 @@
         </div>
         <ul class="menu-links">
             <li class="active">
-                <a href="#">
+                <a href="<?php echo  site_url( '/provider/' ); ?>">
                     <svg version="1.1" id="dashboard-icon" x="0px" y="0px" viewBox="0 0 93.93 93.93">
                         <g>
                             <g>
@@ -59,7 +59,7 @@
                     </svg> Dashboard</a>
             </li>
             <li>
-                <a href="#">
+                <a href="<?php echo  site_url( '/provider/profile/' ); ?>">
                     <svg id="profile-icon" x="0px" y="0px" viewBox="0 0 33.75 45.313">
                         <g>
                             <g>
@@ -75,7 +75,7 @@
                         </g>
                     </svg> Profile </a>
             </li>
-            <li>
+          <!--  <li>
                 <a href="#">
                     <svg id="messages-icon" x="0px" y="0px" viewBox="0 0 511.626 511.626">
                         <g>
@@ -186,9 +186,9 @@
                     <svg  version="1.1" x="0px" y="0px" viewBox="0 0 20 25" id="payment-info-icon"><g><path d="M0,3.1v13.9H20V3.1H0z M18,5.1V7H2V5.1H18z M2,14.9V9H18v6H2z"/><rect x="4" y="11" width="4" height="2"/></g></svg>
                     
                     Payment info
-                </a></li>
+                </a></li>-->
             <li>
-                <a href="#">
+                <a href="<?php echo  site_url( '/provider/setting/' ); ?>">
                     <svg id="settings-icon" x="0px" y="0px" viewBox="0 0 347.958 347.958">
                         <path d="M327.976,93.864l19.982-19.991l-59.02-59.042l-146.92,146.923c-35.84-22.488-83.666-18.17-114.852,13.009
     c-36.223,36.23-36.223,94.968,0,131.196c36.227,36.224,94.957,36.224,131.184-0.001c31.18-31.182,35.5-79.019,13.012-114.84

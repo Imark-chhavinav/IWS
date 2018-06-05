@@ -771,76 +771,160 @@ add_shortcode('CS_CustUP','Cs_Cust_UpdateProfile');
 
 function Cs_UpdateBussinessDetails()
 {
-	echo '<div id="UpdateBussinessDetailsModal" class="modal fade custom-popup custom-popup-small" role="dialog">
-		  <div class="modal-dialog">
-		  <form id="UpdateBussinessDetails" method="POST">
-		    <!-- Modal content-->
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal">x</button>
-		        <h2 class="modal-title">Update Business Profile</h2>
-		      </div>
-		      <div class="modal-body">
-				  '.wp_nonce_field( 'BussinessProfile', 'BussinessProfile_wpnonce').'
-				  	<div class="col-lg-6 form-group">
-						<label>Service Provided</label>
-						<select class="form-control" name="">
-							<option value="1"> Catering Only</option>
-							<option value="2"> Venue Only</option>
-							<option value="3"> Catering and Venue</option>
-						</select>
-		     	 	</div>
-		     	 	<div class="col-lg-6 form-group">
-					  <label>Business Description/ About Me</label>
-					  <textarea name="abt_me"></textarea>
-					</div>					  		
-		     	 	<div class="clearfix"></div>
-		     	 	<div class="col-lg-6 form-group">
-					  	<label>Cuisine Types Provided</label>
-		                <>
-		     	 	</div>
-		     	 	<div class="col-lg-6 form-group">
-					  		<label>Last Name</label>
-		                	<input type="text" name="last_name" value = "'.$results[0]->last_name.'" class="form-control" >
-		     	 	</div> 
-		     	 	<div class="col-lg-6 form-group">
-					  		<label>Phone Number</label>
-		                	<input type="text" name="phone_number" value = "'.$results[0]->phone_number.'" class="form-control" >
-		     	 	</div>
-		     	 	<div class="col-lg-6 form-group">
-					  		<label>Street Address</label>
-		                	<input type="text" name="street_address" id="autocomplete" value = "'.$results[0]->street_address.'" class="form-control" >
-		     	 	</div>
-		     	 	<div class="col-lg-6 form-group">
-					  		<label>Unit or Apartment Number</label>
-		                	<input type="text" name="apartment_number" value = "'.$results[0]->apartment_number.'" class="form-control" >
-		     	 	</div>
-		     	 	<div class="col-lg-6 form-group">
-					  		<label>Suburb</label>
-		                	<input type="text" name="suburb" value = "'.$results[0]->suburb.'" class="form-control" >
-		     	 	</div>  
-		     	 	<div class="col-lg-6 form-group">
-					  		<label>State</label>
-		                	<input type="text" name="state" value = "'.$results[0]->state.'" class="form-control" >
-		     	 	</div>
-		     	 	<div class="col-lg-6 form-group">
-					  		<label>Postcode</label>
-		                	<input type="text" name="postcode" value = "'.$results[0]->post_code.'" class="form-control" >
-		     	 	</div> 
-		     	 	<div class="col-lg-12 form-group">
-					  		<label>About Me</label>
-					  		<textarea name="about_me" class="form-control" >'.$results[0]->about_me.'</textarea>                	
-		     	 	</div>   	 	
-		                
-		      </div>
-		      
-		      <div class="modal-footer">
-		        <input type="submit" value="Update Details" class="btn btn-default">
-		      </div>
-
-		    </div>
-		</form>   
+	echo '<div id="businessModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+	<form id="BusinessDetails">
+	 '.wp_nonce_field( 'BussinessProfile', 'BussinessProfile_wpnonce').'
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Business Details</h4>
+      </div>
+      <div class="modal-body">		
+			  <div class="form-group">
+					<label for="serviceProvided">Service Provided</label>
+					<select id="serviceProvided" class="form-control">
+					 	<option value="">Select Service Provided </option>	
+					  <option value="1">Catering</option>
+					  <option value="2">Venue</option>
+					  <option value="3">Catering and Venue Both</option>				 
+					</select>				
+			  </div>
+			  <div class="form-group">
+				<label for="businessAboutme">Business Description/About Me</label>
+				<textarea id="businessAboutme" placeholder="Business Description/About Me" class="form-control" name="aboutme" rows="3"></textarea>
+			  </div>
+			<section class="Venue-section">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="VenueCapacity">Venue Capacity</label>
+							<input type="text" placeholder="Venue Capacity" name="VenueCapacity" id="VenueCapacity" class="form-control">
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="AccessibilityVenue">Accessibility Feature of Venue</label>
+							<input type="text" placeholder="Accessibility Feature of Venue" name="AccessibilityVenue" id="AccessibilityVenue" class="form-control">
+						</div>
+					</div>				
+					<div class="col-lg-12">
+						<div class="form-group">
+							<label for="VenueDescription">Venue Description</label>
+							<textarea id="VenueDescription" placeholder="Venue Description" class="form-control" name="VenueDescription" rows="3"></textarea>
+						</div>
+					</div>				
+			</section>
+			<section class="Catering-section">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="CateringCapacity">Catering Capacity</label>
+							<input type="text" placeholder="Catering Capacity" name="CateringCapacity" id="CateringCapacity" class="form-control">
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="CuisineType">Cuisine Type Provided</label>
+							<select id="CuisineType" class="form-control">
+							  <option value="">Select Cuisine Type </option>					  				 
+							</select>				
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="CuisineTypeOther">Cuisine Type Other</label>
+							<input type="text" name="cuisineOther" class="form-control" id="CuisineTypeOther" placeholder="Cuisine Type Other">
+							<p class="help-block"> Your Cuisine not specified in above Cuisine Types</p>				
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+							<label for="PopularDishes">Popular Dishes</label>
+							<input type="text" placeholder="Popular Dishes" name="PopularDishes" id="PopularDishes" class="form-control">
+						</div>
+					</div>
+				</div>
+			</section>			  
+      </div>
+	      <div class="modal-footer">
+	        <button type="submit" class="btn btn-default">Submit</button>
+	      </div>
+    </div>
+	</form>
   </div>
-	</div>';
+</div>';
 }
 add_shortcode( 'BP_Update' , 'Cs_UpdateBussinessDetails' );
+
+function GalleryUpload()
+{
+	$html = '';
+	$html .='<div id="GalleryUpload" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">Gallery Upload</h4>
+			      </div>
+			      <div class="modal-body">			    
+		      		<div class="form-group">
+					    <label for="GalleryName">Gallery Name: </label>
+					    <input type="text" name="Gallery Name" class="form-control" id="GalleryName">
+				  	</div>
+				  	<div class="dropzone" id="id_dropzone"></div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>';
+
+
+		$html .='
+		<script>
+		Dropzone.autoDiscover = false;
+	var myDropzone = new Dropzone("#id_dropzone", { 
+    url: "<?php echo get_template_directory_uri(); ?>/ajax_file_upload_handler.php",
+    autoProcessQueue:false,
+	maxFilesize:5,
+	addRemoveLinks: true,
+	parallelUploads: 100,
+	//maxFiles: 1,
+	acceptedFiles: "application/pdf",
+	clickable: ".buttonText,#id_dropzone,.dz-clickable",
+	queuecomplete:function()
+	{
+		$(".dz-remove").hide();			
+	},	
+	init: function ()
+	{
+        this.on("sending", function (file, xhr, formData, e) {
+			formData.append("GalleryName", $("#GalleryName").val()); 
+			//formData.append("action", "lessonplan"); 			
+			//formData.append("_wpnonce", $("#_wpnonce").val());                
+		});			
+
+		this.on("queuecomplete", function(file, responseText) {
+            $(".alert-success").show();
+            setTimeout(function(){ location.reload(); }, 4000);
+        });
+
+        this.on("maxfilesexceeded", function(file) {
+            this.removeAllFiles();
+            this.addFile(file);
+     	 });
+
+     }
+
+  });
+
+		</script>';	
+		echo $html;
+}
+add_shortcode( 'GUPload' , 'GalleryUpload' );

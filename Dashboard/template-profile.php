@@ -16,7 +16,7 @@ get_header('dashboard');?>
 <div class="main">
         <div class="container-fluid contracts-outer profile-edit-page">
            <h2>Profile</h2>            
-             <a href="#" class="white-btn top-edit-btn">Edit</a>           
+             <a href="#" data-toggle="modal" data-target="#businessModal" class="white-btn top-edit-btn">Edit</a>           
             <div class="customer-profile-cover">
                 
                 <div class="customer-about-me">
@@ -203,7 +203,7 @@ get_header('dashboard');?>
                         
                     </div>
                     
-                     <a href="#" class="white-btn"><i class="fa fa-upload" aria-hidden="true"></i> Upload</a>
+                     <a href="#" data-toggle="modal" data-target="#GalleryUpload" class="white-btn"><i class="fa fa-upload" aria-hidden="true"></i> Upload</a>
                     
                 </div>
                 
@@ -268,4 +268,6 @@ get_header('dashboard');?>
         </div>
     </div>
 <?php get_footer('dashboard'); ?>
+<?php echo do_shortcode( '[BP_Update]' ); ?>
+<?php echo do_shortcode( '[GUPload]' ); ?>
 

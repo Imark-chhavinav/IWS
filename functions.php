@@ -432,12 +432,13 @@ add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
 function themeScripts() {    
 
 
-wp_enqueue_style( 'boostrap-cdn-css','https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
-wp_enqueue_style( 'carousel-cdn-css', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css');     
-wp_enqueue_style('toastr-style','https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css' );  
-wp_enqueue_style('mCustomScrollbar-style','http://cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css' );  
-wp_enqueue_style('jquery-ui-style','http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );  
+wp_enqueue_style( 'boostrap-cdn-css',get_template_directory_uri() . '/css/bootstrap.min.css');
+wp_enqueue_style( 'carousel-cdn-css', get_template_directory_uri() . '/css/owl.carousel.min.css');     
+wp_enqueue_style('toastr-style',get_template_directory_uri() . '/css/toastr.min.css' );  
+wp_enqueue_style('mCustomScrollbar-style',get_template_directory_uri() . '/css/jquery.mCustomScrollbar.min.css' );  
+wp_enqueue_style('jquery-ui-style',get_template_directory_uri() . '/css/jquery-ui.css' );  
 wp_enqueue_style('bootstrap-timepicker-style',get_template_directory_uri() . '/css/bootstrap-timepicker.min.css' );  
+wp_enqueue_style('dropZoneCss',get_template_directory_uri() . '/css/dropzone.css' );  
 	
 
 
@@ -462,6 +463,7 @@ wp_enqueue_style('bootstrap-timepicker-style',get_template_directory_uri() . '/c
 	wp_enqueue_script('toastr-min', get_template_directory_uri() . '/js/toastr.min.js','',time(),true );
 	wp_enqueue_script('jquery-validate-min', get_template_directory_uri() . '/js/jquery.validate.min.js','',time(),true );
 	wp_enqueue_script('jquery-validate-additional-methods', get_template_directory_uri() . '/js/additional-methods.min.js','',time(),true );
+	wp_enqueue_script('dropzoneJS', get_template_directory_uri() . '/js/dropzone.js','',time(),true );
 	
 	
 	/* Define URL FOR AJAX */
